@@ -1,0 +1,7 @@
+{{{define "user/user.template"}}}
+{{{ range $_,$v := .users}}}
+Name:{{{.Name}}}
+Age:{{{.Age}}}
+Birthday:{{{.Birthday | fmtBirthday}}}
+{{{end}}}
+{{{end}}}
