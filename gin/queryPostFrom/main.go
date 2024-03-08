@@ -11,6 +11,10 @@ type person struct {
 }
 
 func main() {
+	mapParam()
+}
+
+func bindQuery() {
 	e := gin.Default()
 	e.GET("/queryBind", func(c *gin.Context) {
 		var p person

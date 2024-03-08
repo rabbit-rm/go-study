@@ -9,6 +9,10 @@ import (
 )
 
 func main() {
+	loggerColor()
+}
+
+func logger() {
 	gin.DisableConsoleColor()
 	gin.DebugPrintRouteFunc = func(httpMethod, absolutePath, handlerName string, nuHandlers int) {
 		_, _ = fmt.Fprintf(gin.DefaultWriter, "endpoint %v %v %v %v\n", httpMethod, absolutePath, handlerName, nuHandlers)
