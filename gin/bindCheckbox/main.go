@@ -16,7 +16,7 @@ func main() {
 }
 
 func indexHandler(c *gin.Context) {
-	c.HTML(200, "index.html", nil)
+	c.HTML(200, "hello.html", nil)
 }
 
 type colorForm struct {
