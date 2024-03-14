@@ -36,3 +36,23 @@ func PrintValidatorError(err error) {
 	}
 	fmt.Println(err)
 }
+
+func PrintValidatorErrorSimplify(err error) {
+	fmt.Println("--------------------------------------------------")
+	if err == nil {
+		return
+	}
+	var invalidValidationError *validator.InvalidValidationError
+	if errors.As(err, &invalidValidationError) {
+		fmt.Println(err)
+		return
+	}
+	var v validator.ValidationErrors
+	if errors.As(err, &v) {
+		for _, err := range err.(validator.ValidationErrors) {
+			fmt.Println(err.Error())
+		}
+		return
+	}
+	fmt.Println(err)
+}
