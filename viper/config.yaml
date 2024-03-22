@@ -1,0 +1,5 @@
+password: "123456"
+server:
+    name: NameService
+    port: 80
+username: rabbit.rm
