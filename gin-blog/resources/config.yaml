@@ -1,0 +1,8 @@
+ip: 192.168.1.233
+port: 80
+
+mysql:
+  username: root
+  password: root@123456
+  host: 192.168.204.130:3306
+  schema: blog
