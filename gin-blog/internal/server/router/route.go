@@ -4,15 +4,20 @@ import (
 	"net/http"
 	"strings"
 
+	"blog/docs"
 	"blog/internal/server/code"
 	v1 "blog/internal/server/router/api/v1"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/rabbit-rm/rabbit/errorKit"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func InitRouter(engin *gin.Engine) {
+	docs.SwaggerInfo.BasePath = "/"
+	engin.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	apiV1Group := engin.Group("/api/v1", func(ctx *gin.Context) {
 		auth := ctx.GetHeader("Authorization")

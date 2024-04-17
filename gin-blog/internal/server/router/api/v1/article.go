@@ -51,6 +51,14 @@ func GetArticle(ctx *gin.Context) {
 	}
 }
 
+// GetArticles
+// @Summary 获得所有文章
+// @Produce  json
+// @Param state query int false "State"
+// @Param tagId query string true "TagId"
+// @Param page query int false "page"
+// @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
+// @Router /api/v1/articles [post]
 func GetArticles(ctx *gin.Context) {
 	var tagId uint64
 	var state uint64
