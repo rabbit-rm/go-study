@@ -1,0 +1,28 @@
+info:
+  contact: {}
+paths:
+  /api/v1/articles:
+    post:
+      parameters:
+      - description: State
+        in: query
+        name: state
+        type: integer
+      - description: TagId
+        in: query
+        name: tagId
+        required: true
+        type: string
+      - description: page
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            type: string
+      summary: 获得所有文章
+swagger: "2.0"
