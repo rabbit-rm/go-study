@@ -26,3 +26,7 @@ func MySQLConf() MySQL {
 func Host() string {
 	return fmt.Sprintf("%s:%d", c.IP, c.Port)
 }
+
+func UploadConf() Upload {
+	return c.Upload
+}

@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"blog/docs"
+	"blog/internal/config"
 	"blog/internal/server/code"
 	"blog/internal/server/router/api"
 	v1 "blog/internal/server/router/api/v1"
@@ -55,6 +56,8 @@ func InitRouter(engin *gin.Engine) {
 
 	}
 	engin.GET("/auth", api.GetAuth)
+	engin.POST("/upload", api.UploadImage)
+	engin.StaticFS("/images", http.Dir(config.UploadConf().Path))
 
 }
 

@@ -6,3 +6,10 @@ mysql:
   password: root@123456
   host: 192.168.204.130:3306
   schema: blog
+
+upload:
+  path: "resources/images"
+  # 上传文件大小限制
+  imageMaxSize: 5
+  # 支持上传文件扩展名
+  imageType: [jpg,jpeg,png]
