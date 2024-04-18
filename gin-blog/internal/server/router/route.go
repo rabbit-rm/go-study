@@ -54,7 +54,6 @@ func InitRouter(engin *gin.Engine) {
 		apiV1Group.DELETE("/tags/:id", v1.DeleteTag)
 
 	}
-	engin.GET("/auth", v1.GetAuth)
 	engin.GET("/auth", api.GetAuth)
 
 }
