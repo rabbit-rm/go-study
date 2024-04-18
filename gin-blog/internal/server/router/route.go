@@ -6,6 +6,7 @@ import (
 
 	"blog/docs"
 	"blog/internal/server/code"
+	"blog/internal/server/router/api"
 	v1 "blog/internal/server/router/api/v1"
 
 	"github.com/gin-gonic/gin"
@@ -54,12 +55,13 @@ func InitRouter(engin *gin.Engine) {
 
 	}
 	engin.GET("/auth", v1.GetAuth)
+	engin.GET("/auth", api.GetAuth)
 
 }
 
-func parseToken(str string) (*v1.AuthClaims, error) {
-	token, err := jwt.ParseWithClaims(str, &v1.AuthClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(v1.AuthKey), nil
+func parseToken(str string) (*api.AuthClaims, error) {
+	token, err := jwt.ParseWithClaims(str, &api.AuthClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(api.AuthKey), nil
 	})
 	if err != nil {
 		return nil, err
@@ -67,7 +69,7 @@ func parseToken(str string) (*v1.AuthClaims, error) {
 	if !token.Valid {
 		return nil, errorKit.New("token is invalid")
 	}
-	if claims, ok := token.Claims.(*v1.AuthClaims); ok {
+	if claims, ok := token.Claims.(*api.AuthClaims); ok {
 		return claims, nil
 	}
 	return nil, errorKit.New("token type(%t) is invalid", token.Claims)
