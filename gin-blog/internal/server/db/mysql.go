@@ -7,7 +7,7 @@ import (
 	"blog/internal/config"
 	"blog/internal/logger"
 
-	"github.com/rabbit-rm/rabbit/componment/log/zapKit"
+	"github.com/rabbit-rm/rabbit/componment/log/zapToolkit"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	gormLogger "gorm.io/gorm/logger"
@@ -32,7 +32,7 @@ func init() {
 			TablePrefix:   "t_",
 			SingularTable: true,
 		},
-		Logger: gormLogger.New(zapKit.NewZapMySQL(logger.L()), gormLogger.Config{
+		Logger: gormLogger.New(zapToolkit.NewZapMySQL(logger.L()), gormLogger.Config{
 			SlowThreshold: 200 * time.Millisecond,
 			Colorful:      true,
 			LogLevel:      gormLogger.Error,

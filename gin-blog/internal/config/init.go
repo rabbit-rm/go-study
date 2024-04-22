@@ -3,7 +3,7 @@ package config
 import (
 	"fmt"
 
-	"github.com/rabbit-rm/rabbit/viperKit"
+	"github.com/rabbit-rm/rabbit/viperToolkit"
 )
 
 const path = "resources/config.yaml"
@@ -13,7 +13,7 @@ var (
 )
 
 func init() {
-	err := viperKit.UnmarshalFromFile(path, nil, &c)
+	err := viperToolkit.UnmarshalFromFile(path, nil, &c)
 	if err != nil {
 		panic(err)
 	}

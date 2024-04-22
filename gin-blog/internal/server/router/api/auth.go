@@ -9,7 +9,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/rabbit-rm/rabbit/validateKit"
+	"github.com/rabbit-rm/rabbit/validateToolkit"
 )
 
 const AuthKey = "rabbit@rm99@gmail.com"
@@ -23,14 +23,14 @@ type AuthClaims struct {
 func GetAuth(ctx *gin.Context) {
 	username := ctx.Query("username")
 	password := ctx.Query("password")
-	if err := validateKit.ValidateVar(username, "required"); err != nil {
+	if err := validateToolkit.ValidateVar(username, "required"); err != nil {
 		ctx.JSON(http.StatusOK, gin.H{
 			"code": code.Error,
 			"msg":  "username is required",
 		})
 		return
 	}
-	if err := validateKit.ValidateVar(password, "required"); err != nil {
+	if err := validateToolkit.ValidateVar(password, "required"); err != nil {
 		ctx.JSON(http.StatusOK, gin.H{
 			"code": code.Error,
 			"msg":  "password is required",

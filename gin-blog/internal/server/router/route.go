@@ -12,7 +12,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/rabbit-rm/rabbit/errorKit"
+	"github.com/rabbit-rm/rabbit/errorToolkit"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -69,10 +69,10 @@ func parseToken(str string) (*api.AuthClaims, error) {
 		return nil, err
 	}
 	if !token.Valid {
-		return nil, errorKit.New("token is invalid")
+		return nil, errorToolkit.New("token is invalid")
 	}
 	if claims, ok := token.Claims.(*api.AuthClaims); ok {
 		return claims, nil
 	}
-	return nil, errorKit.New("token type(%t) is invalid", token.Claims)
+	return nil, errorToolkit.New("token type(%t) is invalid", token.Claims)
 }
