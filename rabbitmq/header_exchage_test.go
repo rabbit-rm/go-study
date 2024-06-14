@@ -19,6 +19,7 @@ func TestHeaderExchange(t *testing.T) {
 
 	go headerExchangeConsumer("key1", "147")
 	go headerExchangeConsumer("key3", "369")
+	go headerExchangeConsumer("x-match", "any")
 	select {}
 }
 
@@ -38,7 +39,7 @@ func headerExchangePublisher(key, value string) {
 	if err != nil {
 		log.Fatalf("declare exchange error: %+v\n", err)
 	}
-	queue, err := ch.QueueDeclare("header_queue", false, false, false, false, nil)
+	/*queue, err := ch.QueueDeclare("header_queue", false, false, false, false, nil)
 	if err != nil {
 		log.Fatalf("declare queue error: %+v\n", err)
 	}
@@ -51,7 +52,7 @@ func headerExchangePublisher(key, value string) {
 	err = ch.QueueBind(queue.Name, "", "header_exchange", false, table)
 	if err != nil {
 		log.Fatalf("bind queue error: %+v\n", err)
-	}
+	}*/
 	index := 1
 	for {
 		err = ch.Publish("header_exchange", "", false, false, amqp091.Publishing{
@@ -80,7 +81,7 @@ func headerExchangeConsumer(key, value string) {
 	if err != nil {
 		log.Fatalf("create channel error: %+v\n", err)
 	}
-	queue, err := ch.QueueDeclare("header_queue", false, false, false, false, nil)
+	queue, err := ch.QueueDeclare("", false, false, false, false, nil)
 	if err != nil {
 		log.Fatalf("declare queue error: %+v\n", err)
 	}
@@ -89,11 +90,11 @@ func headerExchangeConsumer(key, value string) {
 	}); err != nil {
 		log.Fatalf("bind queue error: %+v\n", err)
 	}
-	msgs, err := ch.Consume("header_queue", "", true, false, false, false, nil)
+	msgs, err := ch.Consume(queue.Name, "", true, false, false, false, nil)
 	if err != nil {
 		log.Fatalf("consume error: %+v\n", err)
 	}
 	for msg := range msgs {
-		log.Printf("receive message: [%s:%s]%s\n", key, value, msg.Body)
+		log.Printf("receive message: [%s:%s]header:%s,body:%s\n", key, value, msg.Headers, msg.Body)
 	}
 }
