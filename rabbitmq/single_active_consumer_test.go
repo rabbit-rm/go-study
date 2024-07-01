@@ -11,6 +11,7 @@ import (
 )
 
 func TestSingleActive(t *testing.T) {
+	// 单一活动消费者
 	conn, err := amqp091.Dial(rabbitUrl)
 	if err != nil {
 		log.Fatalf("create conn err:%+v\n", err)
