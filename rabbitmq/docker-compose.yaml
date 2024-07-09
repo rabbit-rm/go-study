@@ -1,0 +1,76 @@
+
+# docker 搭建 rabbitmq 集群
+version: '3'
+services:
+  # 服务名称
+  rabbitmq1:
+    # 镜像名称
+    image: rabbitmq:3.13-management
+    # 容器名称
+    container_name: mq1
+    # 主机名称
+    hostname: mq1
+    # 容器随着docker启动而自动启动
+    restart: always
+    # 宿主机映射到容器内的相应端口
+    ports:
+      - "5671:5672"
+      - "15671:15672"
+    # 配置自动创建的账号信息
+    environment:
+      RABBITMQ_DEFAULT_USER: root
+      RABBITMQ_DEFAULT_PASS: 123456
+      RABBITMQ_DEFAULT_VHOST: '/'
+    volumes:
+      # 数据目录映射
+      - /root/rabbitmq_cluster/mq1/data:/var/lib/rabbitmq
+      # 配置文件映射
+      - /root/rabbitmq_cluster/mq1/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+      # cookie文件映射
+      - /root/rabbitmq_cluster/mq1/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie
+    # 配置使用的桥接网络
+    networks:
+      - mqNetwork
+
+  rabbitmq2:
+    image: rabbitmq:3.13-management
+    container_name: mq2
+    hostname: mq2
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: root
+      RABBITMQ_DEFAULT_PASS: 123456
+      RABBITMQ_DEFAULT_VHOST: '/'
+    volumes:
+      - /root/rabbitmq_cluster/mq2/data:/var/lib/rabbitmq
+      - /root/rabbitmq_cluster/mq2/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+      - /root/rabbitmq_cluster/mq2/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie
+    networks:
+      - mqNetwork
+
+  rabbitmq3:
+    image: rabbitmq:3.13-management
+    container_name: mq3
+    hostname: mq3
+    restart: always
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: root
+      RABBITMQ_DEFAULT_PASS: 123456
+      RABBITMQ_DEFAULT_VHOST: '/'
+    volumes:
+      - /root/rabbitmq_cluster/mq3/data:/var/lib/rabbitmq
+      - /root/rabbitmq_cluster/mq3/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+      - /root/rabbitmq_cluster/mq3/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie
+    networks:
+      - mqNetwork
+
+# 创建一个桥接网络，把各个 rabbitmq 实例连接在一起
+networks:
+  mqNetwork:
+    driver: bridge
