@@ -55,24 +55,24 @@ var catChan chan struct{}
 var fishChan chan struct{}
 
 func Dog(rev, send chan struct{}) {
-	for range 100 {
+	/*for range 100 {
 		<-rev
 		fmt.Println("dog")
 		send <- struct{}{}
-	}
+	}*/
 }
 func Cat(rev, send chan struct{}) {
-	for range 100 {
+	/*for range 100 {
 		<-rev
 		fmt.Println("cat")
 		send <- struct{}{}
-	}
+	}*/
 }
 
 func Fish(rev, send chan struct{}) {
-	for range 100 {
+	/*for range 100 {
 		<-rev
 		fmt.Println("fish")
 		send <- struct{}{}
-	}
+	}*/
 }
