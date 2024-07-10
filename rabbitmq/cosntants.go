@@ -1,5 +1,5 @@
 package rabbitmq
 
 const (
-	rabbitUrl = "amqp://guest:guest@192.168.204.132:5673/"
+	rabbitUrl = "amqp://guest:guest@192.168.204.132:5672/"
 )
